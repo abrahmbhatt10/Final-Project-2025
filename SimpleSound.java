@@ -17,6 +17,7 @@ public class SimpleSound extends JFrame implements ActionListener{
     Instrument[] instrument;
     Timer t;
     int i = 0;
+    boolean[][] grid = new boolean[7][16];
 
     public SimpleSound() {
         this.setLayout(new BorderLayout());
