@@ -36,6 +36,7 @@ public class MIDI {
 
     private boolean[][] loadNotes(BufferedReader br) {
         String line;
+        switchARoo();
         boolean[][] returnArray = new boolean[12][16];
         try {
             // Update instance variables with test data
