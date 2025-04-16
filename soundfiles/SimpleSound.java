@@ -64,6 +64,9 @@ public class SimpleSound extends JFrame implements ActionListener{
     }
 
     void makeMelody(boolean[][] melodyArr) {
+        /*
+            Below plays out the melody inputted in
+         */
         for(int j = 0; j < 16; j++){
             for(int i = 0; i < 12; i++){
                 if(melodyArr[i][j] == true){

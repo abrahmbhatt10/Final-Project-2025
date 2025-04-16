@@ -65,6 +65,9 @@ public class MIDI {
         boolean firstNote = false;
         int firstJ = 0;
         int firstI = 0;
+        /*
+            Below code finds the first note
+         */
         for(int j = 0; j < 16; j++){
             for(int i = 0; i < 12; i++){
                 if((!firstNote) && (inputMelody[i][j] == true)){
