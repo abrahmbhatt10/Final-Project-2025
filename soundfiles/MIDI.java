@@ -7,7 +7,7 @@ public class MIDI {
     private boolean[][] outputMelody;
 
     public MIDI() {
-
+        inputMelody = new boolean[12][16];
     }
 
     public boolean[][] getInputMelody() {
