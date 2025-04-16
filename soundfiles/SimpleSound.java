@@ -61,7 +61,14 @@ public class SimpleSound extends JFrame implements ActionListener{
         }
     }
 
-    void makeMelody() {
+    void makeMelody(boolean[][] melodyArr) {
+        for(int j = 0; j < 16; j++){
+            for(int i = 0; i < 12; i++){
+                if(melodyArr[i][j] == true){
+                    this.midChannel[5].noteOn(i + 48, 400);
+                }
+            }
+        }
         this.midChannel[5].noteOn(55,550);
         this.midChannel[5].noteOn(59,700);
         this.midChannel[5].noteOn(62,400);
