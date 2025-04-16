@@ -20,8 +20,8 @@ public class MIDI {
     }
 
     /*
-            Below code inspired by the tester files from SpellCheck.
-         */
+        Below code inspired by the tester files from SpellCheck.
+    */
     public void readTextFile(String soundFileName){
         // Open files
         try {
