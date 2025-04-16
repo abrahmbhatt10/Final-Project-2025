@@ -16,7 +16,7 @@ public class SimpleSound extends JFrame implements ActionListener{
     MidiChannel[] midChannel;
     Instrument[] instrument;
     Timer t;
-    int i = 0;
+    int j = 0;
     MIDI midi;
 
     public SimpleSound() {
@@ -55,7 +55,7 @@ public class SimpleSound extends JFrame implements ActionListener{
         this.midChannel[5].noteOn(55,550);
         this.midChannel[5].noteOn(59,700);
         this.midChannel[5].noteOn(62,400);
-        if (i < 4) {
+        if (j < 4) {
             this.midChannel[5].noteOn(45, 400);
         }
         else {
@@ -67,11 +67,9 @@ public class SimpleSound extends JFrame implements ActionListener{
         /*
             Below plays out the melody inputted in
          */
-        for(int j = 0; j < 16; j++){
-            for(int i = 0; i < 12; i++){
-                if(melodyArr[i][j] == true){
-                    this.midChannel[5].noteOn(i + 48, 400);
-                }
+        for(int i = 0; i < 12; i++){
+            if(melodyArr[i][this.j] == true){
+                this.midChannel[5].noteOn(i + 48, 400);
             }
         }
     }
@@ -82,6 +80,8 @@ public class SimpleSound extends JFrame implements ActionListener{
 
     public void actionPerformed(ActionEvent e) {
         makeMelody(midi.getInputMelody());
-        makeMelody(midi.getOutputMelody());
+        j++;
+        j = j % 16;
+//        makeMelody(midi.getOutputMelody());
     }
 }
