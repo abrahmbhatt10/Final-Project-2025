@@ -10,9 +10,17 @@ public class MIDI {
 
     }
 
+    public boolean[][] getInputMelody() {
+        return inputMelody;
+    }
+
+    public boolean[][] getOutputMelody() {
+        return outputMelody;
+    }
+
     /*
-        Below code inspired by the tester files from SpellCheck.
-     */
+            Below code inspired by the tester files from SpellCheck.
+         */
     public void readTextFile(String soundFileName){
         // Open files
         try {
@@ -21,7 +29,7 @@ public class MIDI {
             this.inputMelody = loadNotes(soundReader);
 
         } catch (IOException e) {
-            System.out.println("Error opening test file " + text + ".txt");
+            System.out.println("Error opening test file " + soundFileName+ ".txt");
             e.printStackTrace();
         }
     }
@@ -30,13 +38,10 @@ public class MIDI {
         String line;
         boolean[][] returnArray = new boolean[12][16];
         try {
-            line = br.readLine();
-
             // Update instance variables with test data
-
-
             for (int i = 0; i < 12; i++) {
                 line = br.readLine();
+                System.out.println(line);
                 for(int j = 0; j < 16; j++){
                     if(line.charAt(j) == '1'){
                         returnArray[i][j] = true;
