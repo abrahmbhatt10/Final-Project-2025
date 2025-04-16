@@ -47,7 +47,6 @@ public class SimpleSound extends JFrame implements ActionListener{
         } catch (MidiUnavailableException ex) {
             ex.printStackTrace();
         }
-
     }
 
     void makeASound() {
