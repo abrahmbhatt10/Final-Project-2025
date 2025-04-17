@@ -58,9 +58,7 @@ public class SimpleSound extends JFrame implements ActionListener{
                     t.start();
                 }
             };
-            button1.setActionCommand("original");
             button1.addActionListener(myListener);
-            button2.setActionCommand("new");
             button2.addActionListener(myListener);
         } catch (MidiUnavailableException ex) {
             ex.printStackTrace();
