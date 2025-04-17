@@ -30,7 +30,7 @@ public class SimpleSound extends JFrame implements ActionListener{
         this.add(panel);
         panel.add(button1);
         this.pack();
-        t = new Timer(250, this);
+        t = new Timer(125, this);
 
         try {
             syn = MidiSystem.getSynthesizer();
