@@ -87,7 +87,15 @@ public class SimpleSound extends JFrame implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent e){
-
+        /*
+        Below code from: https://stackoverflow.com/questions/18090247/use-one-action-listener-for-all-buttons/18090321
+         */
+        if(e.getSource() == button1){
+            //perform action when textYes clicked
+        }
+        if(e.getSource() == button2){
+            //perform action when textNo clicked
+        }
     }
     public void actionPerformed1(ActionEvent e) {
         makeMelody(midi.getInputMelody());
