@@ -48,6 +48,12 @@ public class SimpleSound extends JFrame implements ActionListener{
                 }
             });
 
+            button2.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    t.start();
+                }
+            });
+
         } catch (MidiUnavailableException ex) {
             ex.printStackTrace();
         }
@@ -80,7 +86,17 @@ public class SimpleSound extends JFrame implements ActionListener{
         new SimpleSound().setVisible(true);
     }
 
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e){
+
+    }
+    public void actionPerformed1(ActionEvent e) {
+        makeMelody(midi.getInputMelody());
+        //makeMelody(midi.getOutputMelody());
+        j++;
+        j = j % 64;
+    }
+
+    public void actionPerformed2(ActionEvent e) {
         //makeMelody(midi.getInputMelody());
         makeMelody(midi.getOutputMelody());
         j++;
