@@ -28,6 +28,7 @@ public class MIDI {
             BufferedReader soundReader = new BufferedReader(new FileReader("soundfiles/" + soundFileName + ".txt"));
 
             this.inputMelody = loadNotes(soundReader);
+            switchARoo();
 
         } catch (IOException e) {
             System.out.println("Error opening test file " + soundFileName+ ".txt");
@@ -37,7 +38,6 @@ public class MIDI {
 
     private boolean[][] loadNotes(BufferedReader br) {
         String line;
-        switchARoo();
         boolean[][] returnArray = new boolean[12][64];
         try {
             // Update instance variables with test data
