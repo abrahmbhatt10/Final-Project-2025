@@ -26,7 +26,8 @@ public class SimpleSound extends JFrame implements ActionListener{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel panel = new JPanel();
-        JButton button1 = new JButton("Try");
+        JButton button1 = new JButton("Original: ");
+        JButton button2 = new JButton("New: ");
         this.add(panel);
         panel.add(button1);
         this.pack();
