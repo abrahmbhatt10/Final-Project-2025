@@ -7,8 +7,8 @@ public class MIDI {
     private boolean[][] outputMelody;
 
     public MIDI() {
-        inputMelody = new boolean[12][16];
-        outputMelody = new boolean[12][16];
+        inputMelody = new boolean[12][64];
+        outputMelody = new boolean[12][64];
     }
 
     public boolean[][] getInputMelody() {
@@ -38,13 +38,13 @@ public class MIDI {
     private boolean[][] loadNotes(BufferedReader br) {
         String line;
         switchARoo();
-        boolean[][] returnArray = new boolean[12][16];
+        boolean[][] returnArray = new boolean[12][64];
         try {
             // Update instance variables with test data
             for (int i = 0; i < 12; i++) {
                 line = br.readLine();
                 System.out.println(line);
-                for(int j = 0; j < 16; j++){
+                for(int j = 0; j < 64; j++){
                     if(line.charAt(j) == '1'){
                         returnArray[i][j] = true;
                     }
@@ -68,7 +68,7 @@ public class MIDI {
         /*
             Below code finds the first note
          */
-        for(int j = 0; j < 16; j++){
+        for(int j = 0; j < 64; j++){
             for(int i = 0; i < 12; i++){
                 if((!firstNote) && (inputMelody[i][j] == true)){
                     firstNote = true;
@@ -84,7 +84,7 @@ public class MIDI {
         int outputI = 0;
         for(int i = 0; i < 12; i++){
             outputI = getSwitchARooI(firstI, i);
-            for(int j = 0; j < 16; j++){
+            for(int j = 0; j < 64; j++){
                 outputMelody[outputI][j] = inputMelody[firstI][j];
             }
         }
