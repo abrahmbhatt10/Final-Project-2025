@@ -18,21 +18,24 @@ public class SimpleSound extends JFrame implements ActionListener{
     Timer t;
     int j = 0;
     MIDI midi;
-    JButton button1, button2;
+    final JButton button1, button2;
+    boolean melodyType;
 
     public SimpleSound() {
         midi = new MIDI();
         midi.readTextFile("sound1");
         this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        melodyType = false;
 
         JPanel panel = new JPanel();
         button1 = new JButton("Original: ");
         button2 = new JButton("New: ");
-        this.add(panel);
         panel.add(button1);
         panel.add(button2);
+        this.add(panel);
         this.pack();
+
         t = new Timer(125, this);
 
         try {
@@ -42,20 +45,23 @@ public class SimpleSound extends JFrame implements ActionListener{
 
             instrument = syn.getDefaultSoundbank().getInstruments();
             syn.loadInstrument(instrument[40]);
-            button1.setActionCommand("play original");
-            button2.setActionCommand("play new");
-            button1.addActionListener(new ActionListener() {
+
+
+            ActionListener myListener = new ActionListener() {
+                @Override
                 public void actionPerformed(ActionEvent e) {
+                    if(e.getSource().equals(button1)) {
+                        melodyType = false;
+                    } else {
+                        melodyType = true;
+                    }
                     t.start();
                 }
-            });
-
-            button2.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    t.start();
-                }
-            });
-
+            };
+            button1.setActionCommand("original");
+            button1.addActionListener(myListener);
+            button2.setActionCommand("new");
+            button2.addActionListener(myListener);
         } catch (MidiUnavailableException ex) {
             ex.printStackTrace();
         }
@@ -88,31 +94,13 @@ public class SimpleSound extends JFrame implements ActionListener{
         new SimpleSound().setVisible(true);
     }
 
-    public void actionPerformed(ActionEvent e){
-        /*
-        Below code from: https://stackoverflow.com/questions/18090247/use-one-action-listener-for-all-buttons/18090321
-         */
-        if((e.getActionCommand() != null) && (e.getActionCommand().equals("play original"))){
-            //perform action when textYes clicked
-            System.out.println("Button1");
-            actionPerformed1(e);
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(!melodyType) {
+            makeMelody(midi.getInputMelody());
+        } else {
+            makeMelody(midi.getOutputMelody());
         }
-        if((e.getActionCommand() != null) && (e.getActionCommand().equals("play new"))){
-            //perform action when textNo clicked
-            System.out.println("Button2");
-            actionPerformed2(e);
-        }
-    }
-    public void actionPerformed1(ActionEvent e) {
-        makeMelody(midi.getInputMelody());
-        //makeMelody(midi.getOutputMelody());
-        j++;
-        j = j % 64;
-    }
-
-    public void actionPerformed2(ActionEvent e) {
-        //makeMelody(midi.getInputMelody());
-        makeMelody(midi.getOutputMelody());
         j++;
         j = j % 64;
     }
