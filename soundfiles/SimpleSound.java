@@ -80,7 +80,7 @@ public class SimpleSound extends JFrame implements ActionListener{
 
     public void actionPerformed(ActionEvent e) {
         makeMelody(midi.getInputMelody());
-        makeMelody(midi.getOutputMelody());
+        //makeMelody(midi.getOutputMelody());
         j++;
         j = j % 64;
     }
