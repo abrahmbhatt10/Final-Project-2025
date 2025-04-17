@@ -30,6 +30,7 @@ public class SimpleSound extends JFrame implements ActionListener{
         JButton button2 = new JButton("New: ");
         this.add(panel);
         panel.add(button1);
+        panel.add(button2);
         this.pack();
         t = new Timer(125, this);
 
