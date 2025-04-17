@@ -42,7 +42,8 @@ public class SimpleSound extends JFrame implements ActionListener{
 
             instrument = syn.getDefaultSoundbank().getInstruments();
             syn.loadInstrument(instrument[40]);
-
+            button1.setActionCommand("play original");
+            button2.setActionCommand("play new");
             button1.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     t.start();
