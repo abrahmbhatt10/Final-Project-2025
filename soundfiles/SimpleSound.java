@@ -18,6 +18,7 @@ public class SimpleSound extends JFrame implements ActionListener{
     Timer t;
     int j = 0;
     MIDI midi;
+    JButton button1, button2;
 
     public SimpleSound() {
         midi = new MIDI();
@@ -26,8 +27,8 @@ public class SimpleSound extends JFrame implements ActionListener{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel panel = new JPanel();
-        JButton button1 = new JButton("Original: ");
-        JButton button2 = new JButton("New: ");
+        button1 = new JButton("Original: ");
+        button2 = new JButton("New: ");
         this.add(panel);
         panel.add(button1);
         panel.add(button2);
