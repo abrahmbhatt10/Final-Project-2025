@@ -92,12 +92,12 @@ public class SimpleSound extends JFrame implements ActionListener{
         /*
         Below code from: https://stackoverflow.com/questions/18090247/use-one-action-listener-for-all-buttons/18090321
          */
-        if(e.getSource() == button1){
+        if(e.getActionCommand() == "play original"){
             //perform action when textYes clicked
             System.out.println("Button1");
             actionPerformed1(e);
         }
-        if(e.getSource() == button2){
+        if(e.getActionCommand() == "play new"){
             //perform action when textNo clicked
             System.out.println("Button2");
             actionPerformed2(e);
