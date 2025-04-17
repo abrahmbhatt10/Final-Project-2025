@@ -93,9 +93,11 @@ public class SimpleSound extends JFrame implements ActionListener{
          */
         if(e.getSource() == button1){
             //perform action when textYes clicked
+            actionPerformed1(e);
         }
         if(e.getSource() == button2){
             //perform action when textNo clicked
+            actionPerformed2(e);
         }
     }
     public void actionPerformed1(ActionEvent e) {
