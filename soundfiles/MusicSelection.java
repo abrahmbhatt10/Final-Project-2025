@@ -19,7 +19,8 @@ public class MusicSelection extends JFrame implements ActionListener {
 
     // Constructor
     public MusicSelection(){
-        l=new JLabel("Select a graph to display a function and its derivative: ");
+        l=new JLabel("First Melody: ");
+
         l.setBounds(50,50,300,20);
         rb1=new JRadioButton("f(x) = x");
         rb1.setBounds(100,100,150,20);
