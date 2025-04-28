@@ -5,10 +5,12 @@ import java.io.IOException;
 public class MIDI {
     private boolean[][] inputMelody;
     private boolean[][] outputMelody;
+    private int scaleLen = 7;
 
     public MIDI() {
-        inputMelody = new boolean[12][64];
-        outputMelody = new boolean[12][64];
+
+        inputMelody = new boolean[scaleLen][64];
+        outputMelody = new boolean[scaleLen][64];
     }
 
     public boolean[][] getInputMelody() {
@@ -38,7 +40,7 @@ public class MIDI {
 
     private boolean[][] loadNotes(BufferedReader br) {
         String line;
-        boolean[][] returnArray = new boolean[12][64];
+        boolean[][] returnArray = new boolean[scaleLen][64];
         try {
             // Update instance variables with test data
             for (int i = 0; i < 12; i++) {
@@ -69,7 +71,7 @@ public class MIDI {
             Below code finds the first note
          */
         for(int j = 0; j < 64; j++){
-            for(int i = 0; i < 12; i++){
+            for(int i = 0; i < scaleLen; i++){
                 if((!firstNote) && (inputMelody[i][j] == true)){
                     firstNote = true;
                     firstJ = j;
@@ -82,7 +84,7 @@ public class MIDI {
             }
         }
         int outputI = 0;
-        for(int i = 0; i < 12; i++){
+        for(int i = 0; i < scaleLen; i++){
             outputI = getSwitchARooI(firstI, i);
             for(int j = 0; j < 64; j++){
                 outputMelody[outputI][j] = inputMelody[firstI][j];
@@ -93,10 +95,10 @@ public class MIDI {
     public int getSwitchARooI(int firstI, int i){
         int returnI = 2*firstI - i;
         if(returnI < 0){
-            returnI = 12 + returnI;
+            returnI = scaleLen + returnI;
         }
-        else if (returnI > 12){
-            returnI = returnI - 12;
+        else if (returnI > scaleLen){
+            returnI = returnI - scaleLen;
         }
         return returnI;
     }
