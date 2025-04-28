@@ -50,6 +50,17 @@ public class MusicSelection extends JFrame implements ActionListener {
                 new Color(240, 240, 240)  // Light Gray
         };
 
+        //Melody Name strings
+        String[] melodyNames = {
+                new String("C"),
+                new String("D"),
+                new String("E"),
+                new String("F"),
+                new String("G"),
+                new String("A"),
+                new String("B")
+        };
+
         // Top-left blank space
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -59,7 +70,7 @@ public class MusicSelection extends JFrame implements ActionListener {
         for (int col = 0; col < 64; col++) {
             gbc.gridx = col + 1;
             gbc.gridy = 0;
-            JLabel colLabel = new JLabel("C" + col, SwingConstants.CENTER);
+            JLabel colLabel = new JLabel(Integer.toString(col+1), SwingConstants.CENTER);
             colLabel.setFont(new Font("Arial", Font.BOLD, 12));
             gridPanel.add(colLabel, gbc);
         }
@@ -69,7 +80,7 @@ public class MusicSelection extends JFrame implements ActionListener {
             // Row label
             gbc.gridx = 0;
             gbc.gridy = row + 1;
-            JLabel rowLabel = new JLabel("Row " + row, SwingConstants.CENTER);
+            JLabel rowLabel = new JLabel(melodyNames[row], SwingConstants.CENTER);
             rowLabel.setFont(new Font("Arial", Font.BOLD, 12));
             gridPanel.add(rowLabel, gbc);
 
