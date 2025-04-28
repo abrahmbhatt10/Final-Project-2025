@@ -88,7 +88,7 @@ public class SimpleSound extends JFrame implements ActionListener{
                 if(i >= 3){
                     noteNumber = noteNumber - 1;
                 }
-                this.midChannel[5].noteOn(i + 48, 400);
+                this.midChannel[5].noteOn(noteNumber, 400);
             }
         }
     }
