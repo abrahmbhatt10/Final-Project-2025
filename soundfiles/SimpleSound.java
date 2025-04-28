@@ -23,7 +23,7 @@ public class SimpleSound extends JFrame implements ActionListener{
 
     public SimpleSound() {
         midi = new MIDI();
-        midi.readTextFile("maryhadalittlelamb");
+        midi.readTextFile("twinkletwinkle");
         this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         melodyType = false;
