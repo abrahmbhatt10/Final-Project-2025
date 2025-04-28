@@ -1,20 +1,20 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /*
     I took the source file FrontEnd.java from last year's final project as a starting point.
  */
 
-public class FrontEnd {
+public class FrontEnd extends JFrame implements ActionListener {
     // Instance Variables
     public static int SCREEN_MAX = 1000;
     public static int SCREEN_WIDTH = SCREEN_MAX;
     public static int SCREEN_HEIGHT = SCREEN_MAX;
     public static int SCREEN_XOFFSET = 100;
     public static int SCREEN_YOFFSET = 100;
-    GraphSelection gsWindow;
-    private MathFunction f;
+    MusicSelection gsWindow;
     double dx;
     double x;
     int originX;
@@ -43,7 +43,7 @@ public class FrontEnd {
     }
 
     // Sets the Gs window
-    public void setGsWindow(GraphSelection gsWindow) {
+    public void setGsWindow(MusicSelection gsWindow) {
         this.gsWindow = gsWindow;
     }
 
@@ -54,6 +54,7 @@ public class FrontEnd {
         g.drawRect(0,0,SCREEN_HEIGHT,SCREEN_WIDTH);
         g.fillRect(0,0,SCREEN_HEIGHT,SCREEN_WIDTH);
         g.setColor(Color.BLACK);
+        /*
         if(f == null)
         {
             return;
@@ -66,6 +67,8 @@ public class FrontEnd {
 
         //Drawing Units
         f.drawUnits(g);
+
+
 
         // Displaying function value and derivative value for x input value given by user
         g.setColor(Color.BLACK);
@@ -94,15 +97,17 @@ public class FrontEnd {
                 f.paintFunction(g);
             }
         }
+
+         */
         g.setColor(Color.BLACK);
     }
-
+/*
 
     // Sets function f to a function inputted
     public void setF(MathFunction f) {
         this.f = f;
     }
-
+ */
 
     // Gets Screen width
     public static int getScreenWidth() {
