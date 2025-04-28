@@ -23,11 +23,11 @@ public class MusicSelection extends JFrame implements ActionListener {
     JPanel inputPanel;
 
 
-    // Constructor
+    // I got below code from ChatGPT
     public MusicSelection(){
-        JFrame frame = new JFrame("7x64 RadioButton Matrix with Borders");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1800, 800); // Adjusted for a lot of buttons
+        inputFrame = new JFrame("7x64 RadioButton Matrix with Borders");
+        inputFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        inputFrame.setSize(1800, 800); // Adjusted for a lot of buttons
 
         JPanel mainPanel = new JPanel(new GridLayout(7, 64, 0, 0)); // No internal gaps
         JRadioButton[][] radioButtons = new JRadioButton[7][64];
@@ -60,8 +60,8 @@ public class MusicSelection extends JFrame implements ActionListener {
             }
         }
 
-        frame.add(new JScrollPane(mainPanel));
-        frame.setVisible(true);
+        inputFrame.add(new JScrollPane(mainPanel));
+        inputFrame.setVisible(true);
     }
 
     // Does action performed of action event e
