@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+import java.awt.*;
 
 /*
     I took the source file from GraphSelection.java and I retitled it to MusicSelection.java
@@ -16,46 +19,49 @@ public class MusicSelection extends JFrame implements ActionListener {
     JTextField tf;
     FrontEnd window;
     JTextField inputX;
+    JFrame inputFrame;
+    JPanel inputPanel;
+
 
     // Constructor
     public MusicSelection(){
-        l=new JLabel("First Melody: ");
+        JFrame frame = new JFrame("7x64 RadioButton Matrix with Borders");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(1800, 800); // Adjusted for a lot of buttons
 
-        l.setBounds(50,50,300,20);
-        rb1=new JRadioButton("f(x) = x");
-        rb1.setBounds(100,100,150,20);
-        rb2=new JRadioButton("f(x) = x^2");
-        rb2.setBounds(100,150,150,20);
-        rb3=new JRadioButton("f(x) = sinx");
-        rb3.setBounds(100,200,150,20);
-        rb4=new JRadioButton("f(x) = cosx");
-        rb4.setBounds(100,250,150,20);
-        rb5=new JRadioButton("Custom Polynomial");
-        rb5.setBounds(100,300,150,20);
-        l2=new JLabel("Separate terms with space");
-        l2.setBounds(125,320,350,20);
-        b=new JButton("Display Graph");
-        b.setBounds(100,400,200,30);
-        b.addActionListener(this);
+        JPanel mainPanel = new JPanel(new GridLayout(7, 64, 0, 0)); // No internal gaps
+        JRadioButton[][] radioButtons = new JRadioButton[7][64];
 
-        bg = new ButtonGroup();
-        bg.add(rb1); bg.add(rb2);bg.add(rb3);bg.add(rb4);bg.add(rb5);
+        // Define the thin and thick borders
+        Border thinBorder = new LineBorder(Color.GRAY, 1);
+        Border thickBorder = new LineBorder(Color.BLACK, 3);
 
-        cb1=new JCheckBox("Display Area Under Graph Too");
-        cb1.setBounds(200,100,150,20);
-        tf = new JTextField("6x^3 +5x^2 +2x^1 +21");
-        tf.setBounds(250,300,200, 20);
-        inputX = new JTextField("10");
-        inputX.setBounds(300,200,50, 20);
-        l1 = new JLabel("Input x value of interest");
-        l1.setBounds(240,180,300,15);
+        for (int row = 0; row < 7; row++) {
+            for (int col = 0; col < 64; col++) {
+                radioButtons[row][col] = new JRadioButton();
 
-        add(l);add(cb1);add(b);add(tf);add(l1);add(inputX);add(l2);
-        add(rb1);add(rb2);add(rb3);add(rb4);add(rb5);
-        setSize(600,600);
-        setLayout(null);
-        setVisible(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+                JPanel wrapperPanel = new JPanel(new BorderLayout());
+                wrapperPanel.add(radioButtons[row][col], BorderLayout.CENTER);
+
+                // Decide the border: thick every 16, thin every 4
+                Border rightBorder = null;
+                if ((col + 1) % 16 == 0) {
+                    rightBorder = thickBorder;
+                } else if ((col + 1) % 4 == 0) {
+                    rightBorder = thinBorder;
+                }
+
+                // Apply borders: right only
+                if (rightBorder != null) {
+                    wrapperPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 0, rightBorder.getBorderInsets(wrapperPanel).right, ((LineBorder) rightBorder).getLineColor()));
+                }
+
+                mainPanel.add(wrapperPanel);
+            }
+        }
+
+        frame.add(new JScrollPane(mainPanel));
+        frame.setVisible(true);
     }
 
     // Does action performed of action event e
