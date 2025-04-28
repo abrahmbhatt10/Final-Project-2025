@@ -19,7 +19,7 @@ public class MusicSelection extends JFrame implements ActionListener {
 
     // I got below code from ChatGPT
     public MusicSelection(){
-        frame = new JFrame("7x64 Melody Notes Matrix");
+        frame = new JFrame("7x64 CheckBox Matrix with Row Highlights");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(2000, 1000);
 
@@ -30,15 +30,16 @@ public class MusicSelection extends JFrame implements ActionListener {
         gridPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
-        gbc.insets = new Insets(1, 1, 1, 1); // Small padding
+        gbc.insets = new Insets(1, 1, 1, 1); // Padding
 
         JCheckBox[][] checkBoxes = new JCheckBox[7][64];
+        JPanel[][] wrapperPanels = new JPanel[7][64]; // Needed to control background coloring
 
         // Borders
         Border thinBorder = new LineBorder(Color.GRAY, 1);
         Border thickBorder = new LineBorder(Color.BLACK, 3);
 
-        // Define distinct colors for each row
+        // Distinct colors for each row
         Color[] rowColors = {
                 new Color(255, 230, 230), // Light Red
                 new Color(230, 255, 230), // Light Green
@@ -49,35 +50,27 @@ public class MusicSelection extends JFrame implements ActionListener {
                 new Color(240, 240, 240)  // Light Gray
         };
 
-        String[] rowMelody = {
-              new String("C"),
-              new String("D"),
-              new String("E"),
-              new String("F"),
-              new String("G"),
-              new String("A"),
-              new String("B")
-        };
-
-        // Top-left empty corner (row 0, col 0)
+        // Top-left blank space
         gbc.gridx = 0;
         gbc.gridy = 0;
         gridPanel.add(new JLabel(""), gbc);
 
-        // Add column labels (at y = 0)
+        // Add column labels
         for (int col = 0; col < 64; col++) {
             gbc.gridx = col + 1;
             gbc.gridy = 0;
-            JLabel colLabel = new JLabel(Integer.toString(col+1), SwingConstants.CENTER);
+            JLabel colLabel = new JLabel("C" + col, SwingConstants.CENTER);
+            colLabel.setFont(new Font("Arial", Font.BOLD, 12));
             gridPanel.add(colLabel, gbc);
         }
 
         // Add rows with row labels and checkboxes
         for (int row = 0; row < 7; row++) {
-            // Row label (at x = 0)
+            // Row label
             gbc.gridx = 0;
-            gbc.gridy = row + 1; // Shifted down by 1 because of column headers
-            JLabel rowLabel = new JLabel(rowMelody[row], SwingConstants.CENTER);
+            gbc.gridy = row + 1;
+            JLabel rowLabel = new JLabel("Row " + row, SwingConstants.CENTER);
+            rowLabel.setFont(new Font("Arial", Font.BOLD, 12));
             gridPanel.add(rowLabel, gbc);
 
             // Checkboxes
@@ -86,6 +79,10 @@ public class MusicSelection extends JFrame implements ActionListener {
 
                 JPanel wrapperPanel = new JPanel(new BorderLayout());
                 wrapperPanel.add(checkBoxes[row][col], BorderLayout.CENTER);
+                wrapperPanel.setOpaque(true);
+                wrapperPanel.setBackground(Color.WHITE); // Default background
+
+                wrapperPanels[row][col] = wrapperPanel; // Store reference
 
                 // Border logic
                 Border rightBorder = null;
@@ -107,17 +104,12 @@ public class MusicSelection extends JFrame implements ActionListener {
                 gbc.gridy = row + 1;
                 gridPanel.add(wrapperPanel, gbc);
 
-                // Behavior: highlight the checkbox with row color
                 int finalRow = row;
                 int finalCol = col;
+
+                // Behavior: when checkbox selected/deselected
                 checkBoxes[row][col].addItemListener(e -> {
-                    if (e.getStateChange() == ItemEvent.SELECTED) {
-                        checkBoxes[finalRow][finalCol].setBackground(rowColors[finalRow]);
-                        checkBoxes[finalRow][finalCol].setOpaque(true);
-                    } else {
-                        checkBoxes[finalRow][finalCol].setBackground(null);
-                        checkBoxes[finalRow][finalCol].setOpaque(false);
-                    }
+                    updateRowHighlight(checkBoxes, wrapperPanels, rowColors, finalRow);
                 });
             }
         }
@@ -125,11 +117,10 @@ public class MusicSelection extends JFrame implements ActionListener {
         JScrollPane scrollPane = new JScrollPane(gridPanel);
         outerPanel.add(scrollPane, BorderLayout.CENTER);
 
-        // Submit button at the bottom
+        // Submit button
         JButton submitButton = new JButton("Submit");
         outerPanel.add(submitButton, BorderLayout.SOUTH);
 
-        // Action when Submit is pressed
         submitButton.addActionListener(e -> {
             System.out.println("Selected CheckBoxes:");
             for (int row = 0; row < 7; row++) {
@@ -140,11 +131,27 @@ public class MusicSelection extends JFrame implements ActionListener {
                 }
             }
         });
-
         frame.add(outerPanel);
         frame.setVisible(true);
     }
 
+    // Updates the background of an entire row based on selection
+    private static void updateRowHighlight(JCheckBox[][] checkBoxes, JPanel[][] wrappers, Color[] rowColors, int row) {
+        boolean anySelected = false;
+        for (int col = 0; col < 64; col++) {
+            if (checkBoxes[row][col].isSelected()) {
+                anySelected = true;
+                break;
+            }
+        }
+        for (int col = 0; col < 64; col++) {
+            if (anySelected) {
+                wrappers[row][col].setBackground(rowColors[row]);
+            } else {
+                wrappers[row][col].setBackground(Color.WHITE);
+            }
+        }
+    }
 
     // Does action performed of action event e
     public void actionPerformed(ActionEvent e){
