@@ -133,6 +133,14 @@ public class MusicSelection extends JFrame implements ActionListener {
         outerPanel.add(submitButton, BorderLayout.SOUTH);
 
         submitButton.addActionListener(e -> {
+            frame.setVisible(false);
+            if(this.window == null) {
+                this.window = new FrontEnd();
+                this.window.setGsWindow(this);
+            }
+            this.window.setVisible(true);
+            setVisible(false);
+
             System.out.println("Selected CheckBoxes:");
             for (int row = 0; row < 7; row++) {
                 for (int col = 0; col < 64; col++) {
@@ -141,6 +149,8 @@ public class MusicSelection extends JFrame implements ActionListener {
                     }
                 }
             }
+            JOptionPane.showMessageDialog(this,"Displaying New Music: " + "test" );
+            window.repaint();
         });
         frame.add(outerPanel);
         frame.setVisible(true);
@@ -166,6 +176,7 @@ public class MusicSelection extends JFrame implements ActionListener {
 
     // Does action performed of action event e
     public void actionPerformed(ActionEvent e){
+        System.out.println("I am in actionPerformed");
         if(this.window == null) {
             this.window = new FrontEnd();
             this.window.setGsWindow(this);
@@ -219,7 +230,7 @@ public class MusicSelection extends JFrame implements ActionListener {
         }
 
          */
-        //JOptionPane.showMessageDialog(this,"Displaying Graph: " + f.getStringF());
+        JOptionPane.showMessageDialog(this,"Displaying New Music: " + "test" );
         window.repaint();
     }
     public static void main(String[] args) {
