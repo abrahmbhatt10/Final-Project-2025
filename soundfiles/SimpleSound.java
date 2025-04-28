@@ -81,8 +81,13 @@ public class SimpleSound extends JFrame implements ActionListener{
         /*
             Below plays out the melody inputted in
          */
-        for(int i = 0; i < 12; i++){
+        int noteNumber = 0;
+        for(int i = 0; i < midi.getScaleLen(); i++){
             if(melodyArr[i][this.j] == true){
+                noteNumber = (2*i) + 48;
+                if(i >= 3){
+                    noteNumber = noteNumber - 1;
+                }
                 this.midChannel[5].noteOn(i + 48, 400);
             }
         }

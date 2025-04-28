@@ -13,6 +13,14 @@ public class MIDI {
         outputMelody = new boolean[scaleLen][64];
     }
 
+    public int getScaleLen() {
+        return scaleLen;
+    }
+
+    public void setScaleLen(int scaleLen) {
+        this.scaleLen = scaleLen;
+    }
+
     public boolean[][] getInputMelody() {
         return inputMelody;
     }
@@ -43,7 +51,7 @@ public class MIDI {
         boolean[][] returnArray = new boolean[scaleLen][64];
         try {
             // Update instance variables with test data
-            for (int i = 0; i < 12; i++) {
+            for (int i = 0; i < scaleLen; i++) {
                 line = br.readLine();
                 System.out.println(line);
                 for(int j = 0; j < 64; j++){
