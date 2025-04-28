@@ -143,7 +143,7 @@ public class FrontEnd extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e){
         if(gsWindow == null)
         {
-            gsWindow = new GraphSelection();
+            gsWindow = new MusicSelection();
         }
         gsWindow.setVisible(true);
         setVisible(false);

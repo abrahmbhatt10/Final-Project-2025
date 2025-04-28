@@ -60,6 +60,7 @@ public class MusicSelection extends JFrame implements ActionListener {
         }
         this.window.setVisible(true);
         setVisible(false);
+        /*
         MathFunction f = null;
         if(rb1.isSelected()){
             f = new MathFunction(window);
@@ -104,6 +105,8 @@ public class MusicSelection extends JFrame implements ActionListener {
                 f.setInputX(Integer.parseInt(tstr1));
             }
         }
+
+         */
         //JOptionPane.showMessageDialog(this,"Displaying Graph: " + f.getStringF());
         window.repaint();
     }
