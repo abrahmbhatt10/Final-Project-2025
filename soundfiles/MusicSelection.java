@@ -3,7 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /*
-    I took the source file GraphSelection.java but retitled it to MusicSelection.java
+    I took the source file from GraphSelection.java and I retitled it to MusicSelection.java
     from last year's final project as a starting point.
  */
 
