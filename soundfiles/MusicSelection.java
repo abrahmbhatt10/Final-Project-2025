@@ -2,6 +2,11 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/*
+    I took the source file GraphSelection.java but retitled it to MusicSelection.java
+    from last year's final project as a starting point.
+ */
+
 public class MusicSelection extends JFrame implements ActionListener {
     JLabel l, l1, l2;
     JRadioButton rb1,rb2,rb3,rb4, rb5;
