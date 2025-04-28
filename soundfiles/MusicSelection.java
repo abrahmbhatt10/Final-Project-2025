@@ -28,8 +28,7 @@ public class MusicSelection extends JFrame implements ActionListener {
         inputFrame = new JFrame("7x64 RadioButton Matrix with Borders");
         inputFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         inputFrame.setSize(1800, 800); // Adjusted for a lot of buttons
-
-        JPanel mainPanel = new JPanel(new GridLayout(7, 64, 0, 0)); // No internal gaps
+        inputPanel = new JPanel(new GridLayout(7, 64, 0, 0)); // No internal gaps
         JRadioButton[][] radioButtons = new JRadioButton[7][64];
 
         // Define the thin and thick borders
@@ -56,11 +55,11 @@ public class MusicSelection extends JFrame implements ActionListener {
                     wrapperPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 0, rightBorder.getBorderInsets(wrapperPanel).right, ((LineBorder) rightBorder).getLineColor()));
                 }
 
-                mainPanel.add(wrapperPanel);
+                inputPanel.add(wrapperPanel);
             }
         }
 
-        inputFrame.add(new JScrollPane(mainPanel));
+        inputFrame.add(new JScrollPane(inputPanel));
         inputFrame.setVisible(true);
     }
 
