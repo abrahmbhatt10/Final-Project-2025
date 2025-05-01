@@ -25,7 +25,8 @@ public class MultiPageForm extends JFrame {
         cardPanel.add(createPage("Select Melody 1", new String[]{"Option A", "Option B", "Option C"}, "Next", 2), "Page2");
         cardPanel.add(createPage("Grid 1", null, "Next", 3), "Page3");
         cardPanel.add(createPage("Select Melody 2", new String[]{"Choice 1", "Choice 2", "Choice 3"}, "Next", 4), "Page4");
-        cardPanel.add(createFinalPage(), "Grid 2");
+        cardPanel.add(createPage("Grid 2", new String[]{"Choice 1", "Choice 2", "Choice 3"}, "Next", 4), "Page4");
+        cardPanel.add(createFinalPage(), "New Composition Selections");
 
         add(cardPanel);
         setVisible(true);
@@ -51,7 +52,7 @@ public class MultiPageForm extends JFrame {
 
     private JPanel createFinalPage() {
         JPanel panel = new JPanel(new BorderLayout());
-        JLabel label = new JLabel("Page 5 - Final Page", JLabel.CENTER);
+        JLabel label = new JLabel("New Composition Selections", JLabel.CENTER);
         panel.add(label, BorderLayout.NORTH);
 
         JButton submitButton = new JButton("Submit");
