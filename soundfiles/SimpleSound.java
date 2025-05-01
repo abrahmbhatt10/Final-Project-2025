@@ -100,7 +100,7 @@ public class SimpleSound extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(!melodyType) {
-            makeMelody(midi.getInputMelody());
+            makeMelody(midi.getInputMelody1());
         } else {
             makeMelody(midi.getOutputMelody());
         }

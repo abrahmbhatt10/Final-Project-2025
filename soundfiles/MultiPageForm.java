@@ -1,20 +1,26 @@
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
+
+// Code below is from ChatGPT
 
 public class MultiPageForm {
     private JFrame frame;
     private CardLayout cardLayout;
     private JPanel mainPanel;
+    MIDI midi;
+    String songsListFileName = "songsList.txt";
 
     // Shared data
     private JComboBox<String> comboBoxPage1;
     private JCheckBox[][] checkBoxMatrixPage2;
-    private JComboBox<String>[][] comboBoxMatrixPage3;
+    private JComboBox<String>[][] comboBoxPage3;
     private JCheckBox[][] checkBoxMatrixPage4;
 
+    public MultiPageForm() {
+        midi = new MIDI();
+        midi.readSongsList(songsListFileName);
+    }
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new MultiPageForm().createAndShowGUI());
     }
@@ -39,8 +45,8 @@ public class MultiPageForm {
     // Page 1: Dropdown
     private JPanel createPage1() {
         JPanel panel = new JPanel(new BorderLayout());
-        JLabel label = new JLabel("Select an option from the dropdown:");
-        comboBoxPage1 = new JComboBox<>(new String[]{"Option 1", "Option 2", "Option 3"});
+        JLabel label = new JLabel("Select a melody from the dropdown:");
+        comboBoxPage1 = new JComboBox<>(midi.getSongNames());
 
         JButton nextButton = new JButton("Next");
         nextButton.addActionListener(e -> cardLayout.show(mainPanel, "Page2"));
@@ -54,7 +60,7 @@ public class MultiPageForm {
 
     // Page 2: 7x64 checkbox matrix with row highlight
     private JPanel createPage2() {
-        checkBoxMatrixPage2 = new JCheckBox[7][64];
+        checkBoxMatrixPage2 = new JCheckBox[midi.getScaleLen()][midi.getTimeSlots()];
         JPanel panel = new JPanel(new BorderLayout());
 
         JPanel grid = createCheckboxMatrix(checkBoxMatrixPage2);
@@ -69,15 +75,15 @@ public class MultiPageForm {
 
     // Page 3: 7x10 dropdown matrix
     private JPanel createPage3() {
-        comboBoxMatrixPage3 = new JComboBox[7][10];
+        comboBoxPage3 = new JComboBox[midi.getScaleLen()][midi.getTimeSlots()];
         JPanel panel = new JPanel(new BorderLayout());
         JPanel grid = new JPanel(new GridLayout(7, 11, 2, 2));
 
         for (int row = 0; row < 7; row++) {
             grid.add(new JLabel("Row " + row, SwingConstants.CENTER));
             for (int col = 0; col < 10; col++) {
-                comboBoxMatrixPage3[row][col] = new JComboBox<>(new String[]{"A", "B", "C"});
-                grid.add(comboBoxMatrixPage3[row][col]);
+                comboBoxPage3[row][col] = new JComboBox<>(midi.getSongNames());
+                grid.add(comboBoxPage3[row][col]);
             }
         }
 
@@ -213,7 +219,7 @@ public class MultiPageForm {
         for (int row = 0; row < 7; row++) {
             result.append("Row ").append(row).append(": ");
             for (int col = 0; col < 10; col++) {
-                result.append(comboBoxMatrixPage3[row][col].getSelectedItem()).append(" ");
+                result.append(comboBoxPage3[row][col].getSelectedItem()).append(" ");
             }
             result.append("<br>");
         }

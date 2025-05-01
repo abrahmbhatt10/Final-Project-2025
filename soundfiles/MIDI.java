@@ -1,15 +1,45 @@
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class MIDI {
-    private boolean[][] inputMelody;
+    private boolean[][] inputMelody1;
+    private boolean[][] inputMelody2;
     private boolean[][] outputMelody;
     private int scaleLen = 7;
+    private int timeSlots = 64;
+
+    public int getTimeSlots() {
+        return timeSlots;
+    }
+
+    public boolean[][] getInputMelody1() {
+        return inputMelody1;
+    }
+    public boolean[][] getInputMelody2() {
+        return inputMelody2;
+    }
+
+    public String[] getSongNames() {
+        return songNames;
+    }
+
+    public String[] getSongFilenames() {
+        return songFilenames;
+    }
+
+    public int getTotalSongs() {
+        return totalSongs;
+    }
+
+    String[] songNames;
+    String[] songFilenames;
+    int totalSongs;
 
     public MIDI() {
-
-        inputMelody = new boolean[scaleLen][64];
+        inputMelody1 = new boolean[scaleLen][64];
+        inputMelody2 = new boolean[scaleLen][64];
         outputMelody = new boolean[scaleLen][64];
     }
 
@@ -21,12 +51,39 @@ public class MIDI {
         this.scaleLen = scaleLen;
     }
 
-    public boolean[][] getInputMelody() {
-        return inputMelody;
-    }
-
     public boolean[][] getOutputMelody() {
         return outputMelody;
+    }
+
+    public String[] readSongsList(String soundFileName){
+        // Open files
+        String line;
+        int lineCount =0;
+        try {
+            BufferedReader songsReader = new BufferedReader(new FileReader("soundfiles/" + soundFileName));
+            line = songsReader.readLine();
+            totalSongs = Integer.parseInt(line);
+            songNames = new String[totalSongs];
+            songFilenames = new String[totalSongs];
+            while (((line = songsReader.readLine()) != null) && (lineCount < totalSongs)) {
+                String[] parts = line.split(";;");
+                if (parts.length == 2) {
+                    String field1 = parts[0].trim();
+                    String field2 = parts[1].trim();
+                    songNames[lineCount] = field1;
+                    songFilenames[lineCount] = field2;
+                    System.out.println("Field 1: " + field1 + " | Field 2: " + field2);
+                    lineCount++;
+                } else {
+                    System.out.println("Invalid line format: " + line);
+                }
+                System.out.println(line);  // Process the line
+            }
+        } catch (IOException e) {
+            System.out.println("Error opening test file " + soundFileName+ ".txt");
+            e.printStackTrace();
+        }
+        return songNames;
     }
 
     /*
@@ -37,7 +94,7 @@ public class MIDI {
         try {
             BufferedReader soundReader = new BufferedReader(new FileReader("soundfiles/" + soundFileName + ".txt"));
 
-            this.inputMelody = loadNotes(soundReader);
+            this.inputMelody1 = loadNotes(soundReader);
             switchARoo();
 
         } catch (IOException e) {
@@ -80,7 +137,7 @@ public class MIDI {
          */
         for(int j = 0; j < 64; j++){
             for(int i = 0; i < scaleLen; i++){
-                if((!firstNote) && (inputMelody[i][j] == true)){
+                if((!firstNote) && (inputMelody1[i][j] == true)){
                     firstNote = true;
                     firstJ = j;
                     firstI = i;
@@ -95,7 +152,7 @@ public class MIDI {
         for(int i = 0; i < scaleLen; i++){
             outputI = getSwitchARooI(firstI, i);
             for(int j = 0; j < 64; j++){
-                outputMelody[outputI][j] = inputMelody[firstI][j];
+                outputMelody[outputI][j] = inputMelody1[firstI][j];
             }
         }
     }
