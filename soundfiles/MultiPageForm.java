@@ -14,18 +14,18 @@ public class MultiPageForm extends JFrame {
     public MultiPageForm() {
         setTitle("Multi-Page Form");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 200);
+        setSize(2000, 1000);
         setLocationRelativeTo(null);
 
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
 
         // Create and add 5 pages
-        cardPanel.add(createPage("Page 1", null, "Next", 1), "Page1");
-        cardPanel.add(createPage("Page 2", new String[]{"Option A", "Option B", "Option C"}, "Next", 2), "Page2");
-        cardPanel.add(createPage("Page 3", null, "Next", 3), "Page3");
-        cardPanel.add(createPage("Page 4", new String[]{"Choice 1", "Choice 2", "Choice 3"}, "Next", 4), "Page4");
-        cardPanel.add(createFinalPage(), "Page5");
+        cardPanel.add(createPage("Welcome Page", null, "Next", 1), "Page1");
+        cardPanel.add(createPage("Select Melody 1", new String[]{"Option A", "Option B", "Option C"}, "Next", 2), "Page2");
+        cardPanel.add(createPage("Grid 1", null, "Next", 3), "Page3");
+        cardPanel.add(createPage("Select Melody 2", new String[]{"Choice 1", "Choice 2", "Choice 3"}, "Next", 4), "Page4");
+        cardPanel.add(createFinalPage(), "Grid 2");
 
         add(cardPanel);
         setVisible(true);
