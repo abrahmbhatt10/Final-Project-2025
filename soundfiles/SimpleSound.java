@@ -17,13 +17,13 @@ public class SimpleSound extends JFrame implements ActionListener{
     Instrument[] instrument;
     Timer t;
     int j = 0;
-    MIDI midi;
     final JButton button1, button2;
     boolean melodyType;
+    MIDI midi;
 
     public SimpleSound() {
         midi = new MIDI();
-        midi.readTextFile("twinkletwinkle");
+        midi.readTextFile("maryhadalittlelamb");
         this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         melodyType = false;
@@ -93,6 +93,25 @@ public class SimpleSound extends JFrame implements ActionListener{
         }
     }
 
+    void makeMelody(JCheckBox[][] melodyWeb) {
+        int noteNumber = 0;
+        int playtimes = 3;
+        for(int p = 0; p < playtimes; p++) {
+            for(int i = 0; i < midi.getScaleLen(); i++) {
+                for(int k= 0; k < midi.getTimeSlots(); k++) {
+                    if(melodyWeb[i][k].isSelected()) {
+                        noteNumber = (2*i)*48;
+                        if(i >= 3) {
+                            noteNumber = noteNumber-1;
+                        }
+                        this.midChannel[5].noteOn(noteNumber,400);
+                        t.start();
+                    }
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
         new SimpleSound().setVisible(true);
     }
@@ -105,6 +124,6 @@ public class SimpleSound extends JFrame implements ActionListener{
             makeMelody(midi.getOutputMelody());
         }
         j++;
-        j = j % 64;
+        j = j % midi.getTimeSlots();
     }
 }

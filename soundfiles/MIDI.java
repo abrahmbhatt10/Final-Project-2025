@@ -102,6 +102,27 @@ public class MIDI {
             e.printStackTrace();
         }
     }
+    public void readTextFile(String soundFileName, int melodyType) {
+        // Open files
+        try {
+            BufferedReader soundReader = new BufferedReader(new FileReader("soundfiles/" + soundFileName));
+            if(melodyType == 1) {
+                this.inputMelody2 = loadNotes(soundReader);
+            } else {
+                this.inputMelody1 = loadNotes(soundReader);
+            }
+        } catch (IOException e) {
+            System.out.println("Error opening test file " + soundFileName+ ".txt");
+            e.printStackTrace();
+        }
+    }
+
+    public String getMIDIFileName(int selectedIndex) {
+        if(selectedIndex < 0 || selectedIndex >= totalSongs) {
+            return "";
+        }
+        return songFilenames[selectedIndex];
+    }
 
     private boolean[][] loadNotes(BufferedReader br) {
         String line;
@@ -110,7 +131,7 @@ public class MIDI {
             // Update instance variables with test data
             for (int i = 0; i < scaleLen; i++) {
                 line = br.readLine();
-                System.out.println(line);
+                //System.out.println(line);
                 for(int j = 0; j < 64; j++){
                     if(line.charAt(j) == '1'){
                         returnArray[i][j] = true;

@@ -8,18 +8,25 @@ public class MultiPageForm {
     private JFrame frame;
     private CardLayout cardLayout;
     private JPanel mainPanel;
+    private JPanel[] pagesPanel;
     MIDI midi;
+    JustSound justSound;
     String songsListFileName = "songsList.txt";
+    int selected1, selected2;
 
     // Shared data
     private JComboBox<String> comboBoxPage1;
     private JCheckBox[][] checkBoxMatrixPage2;
-    private JComboBox<String>[][] comboBoxPage3;
+    private JComboBox<String> comboBoxPage3;
     private JCheckBox[][] checkBoxMatrixPage4;
 
     public MultiPageForm() {
         midi = new MIDI();
         midi.readSongsList(songsListFileName);
+        selected1 = -1;
+        selected2 = -1;
+        pagesPanel = new JPanel[4];
+        justSound = new JustSound();
     }
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new MultiPageForm().createAndShowGUI());
@@ -33,11 +40,14 @@ public class MultiPageForm {
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
-        mainPanel.add(createPage1(), "Page1");
-        mainPanel.add(createPage2(), "Page2");
-        mainPanel.add(createPage3(), "Page3");
-        mainPanel.add(createPage4(), "Page4");
-
+        pagesPanel[0] = createPage1();
+        mainPanel.add(pagesPanel[0],"Page1");
+        pagesPanel[1] = createPage2();
+        mainPanel.add(pagesPanel[1],"Page2");
+        pagesPanel[2] = createPage3();
+        mainPanel.add(pagesPanel[2],"Page3");
+        pagesPanel[3] =createPage4();
+        mainPanel.add(pagesPanel[3],"Page4");
         frame.add(mainPanel);
         frame.setVisible(true);
     }
@@ -45,15 +55,10 @@ public class MultiPageForm {
     // Page 1: Dropdown
     private JPanel createPage1() {
         JPanel panel = new JPanel(new BorderLayout());
-        JLabel label = new JLabel("Select a melody from the dropdown:");
+        JLabel label = new JLabel("Select a first melody from the dropdown:");
         comboBoxPage1 = new JComboBox<>(midi.getSongNames());
-
-        JButton nextButton = new JButton("Next");
-        nextButton.addActionListener(e -> cardLayout.show(mainPanel, "Page2"));
-
         panel.add(label, BorderLayout.NORTH);
         panel.add(comboBoxPage1, BorderLayout.CENTER);
-        panel.add(nextButton, BorderLayout.SOUTH);
         panel.add(createNavPanel(null, "Page2", false), BorderLayout.SOUTH);
         return panel;
     }
@@ -62,75 +67,97 @@ public class MultiPageForm {
     private JPanel createPage2() {
         checkBoxMatrixPage2 = new JCheckBox[midi.getScaleLen()][midi.getTimeSlots()];
         JPanel panel = new JPanel(new BorderLayout());
-
         JPanel grid = createCheckboxMatrix(checkBoxMatrixPage2);
-        JButton nextButton = new JButton("Next");
-        nextButton.addActionListener(e -> cardLayout.show(mainPanel, "Page3"));
-
+        JButton playButton = new JButton("Play Melody");
+        playButton.addActionListener(e-> {
+            System.out.println("Page 4 Play melody");
+            justSound.makeMelody(checkBoxMatrixPage4, midi);
+        });
+        panel.add(playButton, BorderLayout.WEST);
         panel.add(new JScrollPane(grid), BorderLayout.CENTER);
-        panel.add(nextButton, BorderLayout.SOUTH);
         panel.add(createNavPanel("Page1", "Page3", false), BorderLayout.SOUTH);
         return panel;
     }
 
-    // Page 3: 7x10 dropdown matrix
-    private JPanel createPage3() {
-        comboBoxPage3 = new JComboBox[midi.getScaleLen()][midi.getTimeSlots()];
-        JPanel panel = new JPanel(new BorderLayout());
-        JPanel grid = new JPanel(new GridLayout(7, 11, 2, 2));
-
-        for (int row = 0; row < 7; row++) {
-            grid.add(new JLabel("Row " + row, SwingConstants.CENTER));
-            for (int col = 0; col < 10; col++) {
-                comboBoxPage3[row][col] = new JComboBox<>(midi.getSongNames());
-                grid.add(comboBoxPage3[row][col]);
+    private void initMatrix(boolean[][] melodyMatrix, JCheckBox[][] webMatrix) {
+        if(melodyMatrix == null || webMatrix == null) {
+            return;
+        }
+        for(int i = 0; i < melodyMatrix.length && i < webMatrix.length; i++) {
+            for(int j= 0; j < melodyMatrix[0].length && j < webMatrix[0].length; j++) {
+                if(melodyMatrix[i][j]) {
+                    webMatrix[i][j].setSelected(true);
+                } else {
+                    webMatrix[i][j].setSelected(false);
+                }
             }
         }
+    }
 
-        JButton nextButton = new JButton("Next");
-        nextButton.addActionListener(e -> cardLayout.show(mainPanel, "Page4"));
-
-        panel.add(grid, BorderLayout.CENTER);
-        panel.add(nextButton, BorderLayout.SOUTH);
-        panel.add(createNavPanel("Page2", "Page4", false), BorderLayout.SOUTH);
+    // Page 3: 7x10 dropdown matrix
+    private JPanel createPage3() {
+        JPanel panel = new JPanel(new BorderLayout());
+        JLabel label = new JLabel("Select second melody from the dropdown:");
+        comboBoxPage3 = new JComboBox<>(midi.getSongNames());
+        panel.add(label, BorderLayout.NORTH);
+        panel.add(comboBoxPage3, BorderLayout.CENTER);
+        panel.add(createNavPanel(null, "Page4", false), BorderLayout.SOUTH);
         return panel;
     }
 
     // Page 4: Final 7x64 checkbox matrix with submit button
     private JPanel createPage4() {
-        checkBoxMatrixPage4 = new JCheckBox[7][64];
+        checkBoxMatrixPage4 = new JCheckBox[midi.getScaleLen()][midi.getTimeSlots()];
         JPanel panel = new JPanel(new BorderLayout());
-
         JPanel grid = createCheckboxMatrix(checkBoxMatrixPage4);
-
-        JButton submitButton = new JButton("Submit");
-        submitButton.addActionListener(this::handleSubmit);
+        JButton playButton2 = new JButton("Play Melody");
+        playButton2.addActionListener(e-> {
+            System.out.println("Page 4 Play melody");
+            justSound.makeMelody(checkBoxMatrixPage4, midi);
+        });
+        panel.add(playButton2, BorderLayout.CENTER);
         panel.add(createNavPanel("Page3", null, true), BorderLayout.SOUTH);
         panel.add(new JScrollPane(grid), BorderLayout.CENTER);
-        panel.add(submitButton, BorderLayout.SOUTH);
         return panel;
     }
+
     private JPanel createNavPanel(String backPage, String nextPage, boolean showSubmit) {
         JPanel navPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
         if (backPage != null) {
             JButton back = new JButton("Back");
-            back.addActionListener(e -> cardLayout.show(mainPanel, backPage));
+            back.addActionListener(e -> {
+                cardLayout.show(mainPanel, backPage);
+            });
             navPanel.add(back);
         }
-
         if (nextPage != null) {
             JButton next = new JButton("Next");
-            next.addActionListener(e -> cardLayout.show(mainPanel, nextPage));
+            next.addActionListener(e -> {
+                if(nextPage.equals("Page2")) {
+                    selected1 = comboBoxPage1.getSelectedIndex();
+                    System.out.println("Page 1 Combo item "+selected1+" selected");
+                    String selectedFile1 = midi.getMIDIFileName(selected1);
+                    System.out.println("Selected song file "+selectedFile1);
+                    midi.readTextFile(selectedFile1, 0);
+                    initMatrix(midi.getInputMelody1(),checkBoxMatrixPage2);
+                } else if(nextPage.equals("Page4")) {
+                    selected2 = comboBoxPage3.getSelectedIndex();
+                    String selectedFile2 = midi.getMIDIFileName(selected2);
+                    midi.readTextFile(selectedFile2,1);
+                    initMatrix(midi.getInputMelody2(),checkBoxMatrixPage4);
+                    System.out.println("Selected song file "+selectedFile2);
+                }
+                cardLayout.show(mainPanel, nextPage);
+            });
             navPanel.add(next);
         }
-
         if (showSubmit) {
             JButton submit = new JButton("Submit");
             submit.addActionListener(this::handleSubmit);
             navPanel.add(submit);
         }
-
+        // You could add logic like validation or storing to a database
         return navPanel;
     }
 
@@ -216,15 +243,9 @@ public class MultiPageForm {
         result.append(getCheckboxSelections(checkBoxMatrixPage2));
 
         result.append("<br><b>Page 3 Dropdown Matrix:</b><br>");
-        for (int row = 0; row < 7; row++) {
-            result.append("Row ").append(row).append(": ");
-            for (int col = 0; col < 10; col++) {
-                result.append(comboBoxPage3[row][col].getSelectedItem()).append(" ");
-            }
-            result.append("<br>");
-        }
+        result.append(comboBoxPage3.getSelectedItem()).append(" ");
 
-        result.append("<br><b>Page 4 Checkboxes:</b><br>");
+               result.append("<br><b>Page 4 Checkboxes:</b><br>");
         result.append(getCheckboxSelections(checkBoxMatrixPage4));
         result.append("</html>");
 
