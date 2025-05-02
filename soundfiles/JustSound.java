@@ -7,11 +7,12 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class JustSound implements ActionListener {
+import static java.lang.Thread.*;
+
+public class JustSound {
     Synthesizer syn;
     MidiChannel[] midChannel;
     Instrument[] instrument;
-    Timer t;
 
     public JustSound () {
         try {
@@ -21,7 +22,6 @@ public class JustSound implements ActionListener {
 
             instrument = syn.getDefaultSoundbank().getInstruments();
             syn.loadInstrument(instrument[40]);
-            t = new Timer(125, this);
         } catch (MidiUnavailableException ex) {
             System.out.println("Just Sound error");
             ex.printStackTrace();
@@ -32,25 +32,39 @@ public class JustSound implements ActionListener {
         int noteNumber = 0;
         int playtimes = 3;
         for(int p = 0; p < playtimes; p++) {
-            for(int i = 0; i < midi.getScaleLen(); i++) {
-                for(int k= 0; k < midi.getTimeSlots(); k++) {
+            for(int k = 0; k < midi.getTimeSlots(); k++) {
+                for(int i= 0; i < midi.getScaleLen(); i++) {
                     if(melodyWeb[i][k].isSelected()) {
                         System.out.println("selected note playing");
                         noteNumber = (2*i)*48;
                         if(i >= 3) {
                             noteNumber = noteNumber-1;
                         }
-                        this.midChannel[5].noteOn(noteNumber,400);
+                        this.midChannel[5].noteOn(noteNumber,60);
                         System.out.println("makeMelody "+noteNumber);
-                        t.start();
                     }
                 }
             }
         }
     }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        System.out.println("JustSound ActionEvent");
+    void makeMelody(boolean[][] melodyArr, MIDI midi) throws InterruptedException {
+        int noteNumber = 0;
+        int playtimes = 1;
+        for(int p = 0; p < playtimes; p++) {
+            for(int k = 0; k < midi.getTimeSlots(); k++) {
+                for(int i= 0; i < midi.getScaleLen(); i++) {
+                    if(melodyArr[i][k]) {
+                        System.out.println("selected note playing");
+                        noteNumber = (2*i)*48;
+                        if(i >= 3) {
+                            noteNumber = noteNumber-1;
+                        }
+                        this.midChannel[5].noteOn(noteNumber,400);
+                        sleep(750);
+                        System.out.println("makeMelody "+noteNumber);
+                    }
+                }
+            }
+        }
     }
 }

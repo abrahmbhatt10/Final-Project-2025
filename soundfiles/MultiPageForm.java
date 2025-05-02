@@ -71,7 +71,11 @@ public class MultiPageForm {
         JButton playButton = new JButton("Play Melody");
         playButton.addActionListener(e-> {
             System.out.println("Page 4 Play melody");
-            justSound.makeMelody(checkBoxMatrixPage4, midi);
+            try {
+                justSound.makeMelody(midi.getInputMelody1(), midi);
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
         });
         panel.add(playButton, BorderLayout.WEST);
         panel.add(new JScrollPane(grid), BorderLayout.CENTER);
