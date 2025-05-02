@@ -22,6 +22,7 @@ public class MultiPageForm{
     private JCheckBox[][] checkBoxMatrixPage2;
     private JComboBox<String> comboBoxPage3;
     private JCheckBox[][] checkBoxMatrixPage4;
+    private ResultsPage resultsPage;
 
     public MultiPageForm() {
         midi = new MIDI();
@@ -191,7 +192,7 @@ public class MultiPageForm{
         for (int col = 0; col < 64; col++) {
             gbc.gridx = col + 1;
             gbc.gridy = 0;
-            JLabel colLabel = new JLabel("C" + col, SwingConstants.CENTER);
+            JLabel colLabel = new JLabel(Integer.toString(col), SwingConstants.CENTER);
             colLabel.setFont(new Font("Arial", Font.PLAIN, 10));
             panel.add(colLabel, gbc);
         }
@@ -200,7 +201,13 @@ public class MultiPageForm{
         for (int row = 0; row < 7; row++) {
             gbc.gridy = row + 1;
             gbc.gridx = 0;
-            JLabel rowLabel = new JLabel("Row " + row, SwingConstants.CENTER);
+            char rowName = (char) ('C'+ (char)row);
+            if(rowName == 'H') {
+                rowName = 'A';
+            } else if(rowName == 'I') {
+                rowName = 'B';
+            }
+            JLabel rowLabel = new JLabel(String.valueOf(rowName), SwingConstants.CENTER);
             panel.add(rowLabel, gbc);
 
             for (int col = 0; col < 64; col++) {
@@ -242,7 +249,7 @@ public class MultiPageForm{
 
     // Submission handler
     private void handleSubmit(ActionEvent e) {
-        StringBuilder result = new StringBuilder("<html><h2>Submission Summary:</h2>");
+        /*StringBuilder result = new StringBuilder("<html><h2>Submission Summary:</h2>");
 
         result.append("<b>Page 1 Dropdown:</b> ").append(comboBoxPage1.getSelectedItem()).append("<br><br>");
 
@@ -256,15 +263,17 @@ public class MultiPageForm{
         result.append(getCheckboxSelections(checkBoxMatrixPage4));
         result.append("</html>");
 
+         */
+        midi.setMelodyFromPage(0, checkBoxMatrixPage2);
+        midi.setMelodyFromPage(1,checkBoxMatrixPage4);
+        midi.switchARoo();
         // Show result in a new window
-        JFrame resultFrame = new JFrame("Submission Result");
-        resultFrame.setSize(600, 600);
-        JLabel label = new JLabel(result.toString());
-        label.setVerticalAlignment(SwingConstants.TOP);
-        JScrollPane scrollPane = new JScrollPane(label);
-        resultFrame.add(scrollPane);
+        JFrame resultFrame = new JFrame("Results Page");
+        resultFrame.setSize(1400, 600);
+        resultsPage = new ResultsPage(midi, justSound, frame);
+        resultsPage.setMelodyColors(midi);
+        resultFrame.add(resultsPage);
         resultFrame.setVisible(true);
-
         frame.setVisible(false); // Hide main window
     }
 

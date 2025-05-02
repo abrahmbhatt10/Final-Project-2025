@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -187,5 +188,30 @@ public class MIDI {
             returnI = returnI - scaleLen;
         }
         return returnI;
+    }
+    public void setMelodyFromPage(int selectedIndex, JCheckBox[][] pageMelody) {
+        if(selectedIndex < 0 || selectedIndex > 2) {
+            return;
+        }
+        if(pageMelody == null) {
+            return;
+        }
+        boolean[][] pMelody;
+        if(selectedIndex == 0) {
+            pMelody = inputMelody1;
+        } else if (selectedIndex == 1) {
+            pMelody = inputMelody2;
+        } else {
+            pMelody = outputMelody;
+        }
+        for(int i = 0; i < scaleLen; i++) {
+            for(int j = 0; j < timeSlots; j++) {
+                if(pageMelody[i][j].isSelected()) {
+                    pMelody[i][j] = true;
+                } else {
+                    pMelody[i][j] = false;
+                }
+            }
+        }
     }
 }
