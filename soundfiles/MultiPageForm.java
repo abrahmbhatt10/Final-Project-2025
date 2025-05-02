@@ -33,20 +33,25 @@ public class MultiPageForm{
         timerCount = 0;
         playMusicListener = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                try {
-                        Object source = e.getSource();
-                        if(source.equals(playButton)) {
-                            for (timerCount = 0; timerCount < midi.getTimeSlots(); timerCount++) {
-                                justSound.makeMelody(midi.getInputMelody1(), midi, timerCount);
-                            }
-                        } else if(source.equals(playButton2)) {
-                            for(timerCount = 0; timerCount < midi.getTimeSlots(); timerCount++) {
-                                justSound.makeMelody(midi.getInputMelody2(), midi,timerCount);
-                            }
+                Object source = e.getSource();
+                if(source.equals(playButton)) {
+                    for (timerCount = 0; timerCount < midi.getTimeSlots(); timerCount++) {
+                        //justSound.makeMelody(midi.getInputMelody1(), midi, timerCount);
+                        try {
+                            justSound.makeMelody(checkBoxMatrixPage2,midi,timerCount);
+                        } catch (InterruptedException ex) {
+                            throw new RuntimeException(ex);
                         }
-                } catch (InterruptedException ex) {
-                    System.out.println("playMusic error");
-                    throw new RuntimeException(ex);
+                    }
+                } else if(source.equals(playButton2)) {
+                    for(timerCount = 0; timerCount < midi.getTimeSlots(); timerCount++) {
+                        //justSound.makeMelody(midi.getInputMelody2(), midi,timerCount);
+                        try {
+                            justSound.makeMelody(checkBoxMatrixPage4,midi,timerCount);
+                        } catch (InterruptedException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
                 }
             }
         };

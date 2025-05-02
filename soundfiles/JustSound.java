@@ -3,6 +3,7 @@ import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Synthesizer;
+import javax.swing.*;
 
 public class JustSound {
     Synthesizer syn;
@@ -22,35 +23,22 @@ public class JustSound {
             ex.printStackTrace();
         }
     }
- /*
-    void makeMelody(JCheckBox[][] melodyWeb, MIDI midi) {
-        int noteNumber = 0;
-        int playtimes = 3;
-        for(int p = 0; p < playtimes; p++) {
-            for(int k = 0; k < midi.getTimeSlots(); k++) {
-                for(int i= 0; i < midi.getScaleLen(); i++) {
-                    if(melodyWeb[i][k].isSelected()) {
-                        System.out.println("selected note playing");
-                        noteNumber = (2*i)*48;
-                        if(i >= 3) {
-                            noteNumber = noteNumber-1;
-                        }
-                        this.midChannel[5].noteOn(noteNumber,400);
-                        System.out.println("makeMelody "+noteNumber);
-                        try {
-                            sleep(125);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                        this.midChannel[5].noteOff(noteNumber);
 
-                    }
-                }
+    void makeMelody(JCheckBox[][] melodyWeb, MIDI midi, int timerCount) throws InterruptedException {
+        int noteNumber = 0;
+        for(int i= 0; i < midi.getScaleLen(); i++) {
+            if(melodyWeb[i][timerCount].isSelected()) {
+               System.out.println("selected note playing");
+               noteNumber = (2*i)+48;
+               if(i >= 3) {
+                   noteNumber = noteNumber-1;
+               }
+               this.midChannel[5].noteOn(noteNumber,400);
+               System.out.println("makeMelody "+noteNumber);
             }
+            Thread.sleep(60);
         }
     }
-
-  */
     void makeMelody(boolean[][] melodyArr, MIDI midi, int timerCount) throws InterruptedException {
         int noteNumber = 0;
         for(int i= 0; i < midi.getScaleLen(); i++) {
