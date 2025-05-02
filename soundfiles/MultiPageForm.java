@@ -1,19 +1,22 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 // Code below is from ChatGPT
 
-public class MultiPageForm {
+public class MultiPageForm{
     private JFrame frame;
     private CardLayout cardLayout;
     private JPanel mainPanel;
     private JPanel[] pagesPanel;
     MIDI midi;
     JustSound justSound;
+    int timerCount;
     String songsListFileName = "songsList.txt";
     int selected1, selected2;
-
+    private JButton playButton, playButton2;
+    private ActionListener playMusicListener;
     // Shared data
     private JComboBox<String> comboBoxPage1;
     private JCheckBox[][] checkBoxMatrixPage2;
@@ -27,6 +30,26 @@ public class MultiPageForm {
         selected2 = -1;
         pagesPanel = new JPanel[4];
         justSound = new JustSound();
+        timerCount = 0;
+        playMusicListener = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                        Object source = e.getSource();
+                        if(source.equals(playButton)) {
+                            for (timerCount = 0; timerCount < midi.getTimeSlots(); timerCount++) {
+                                justSound.makeMelody(midi.getInputMelody1(), midi, timerCount);
+                            }
+                        } else if(source.equals(playButton2)) {
+                            for(timerCount = 0; timerCount < midi.getTimeSlots(); timerCount++) {
+                                justSound.makeMelody(midi.getInputMelody2(), midi,timerCount);
+                            }
+                        }
+                } catch (InterruptedException ex) {
+                    System.out.println("playMusic error");
+                    throw new RuntimeException(ex);
+                }
+            }
+        };
     }
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new MultiPageForm().createAndShowGUI());
@@ -68,34 +91,12 @@ public class MultiPageForm {
         checkBoxMatrixPage2 = new JCheckBox[midi.getScaleLen()][midi.getTimeSlots()];
         JPanel panel = new JPanel(new BorderLayout());
         JPanel grid = createCheckboxMatrix(checkBoxMatrixPage2);
-        JButton playButton = new JButton("Play Melody");
-        playButton.addActionListener(e-> {
-            System.out.println("Page 4 Play melody");
-            try {
-                justSound.makeMelody(midi.getInputMelody1(), midi);
-            } catch (InterruptedException ex) {
-                throw new RuntimeException(ex);
-            }
-        });
+        playButton = new JButton("Play Melody");
+        playButton.addActionListener(playMusicListener);
         panel.add(playButton, BorderLayout.WEST);
         panel.add(new JScrollPane(grid), BorderLayout.CENTER);
         panel.add(createNavPanel("Page1", "Page3", false), BorderLayout.SOUTH);
         return panel;
-    }
-
-    private void initMatrix(boolean[][] melodyMatrix, JCheckBox[][] webMatrix) {
-        if(melodyMatrix == null || webMatrix == null) {
-            return;
-        }
-        for(int i = 0; i < melodyMatrix.length && i < webMatrix.length; i++) {
-            for(int j= 0; j < melodyMatrix[0].length && j < webMatrix[0].length; j++) {
-                if(melodyMatrix[i][j]) {
-                    webMatrix[i][j].setSelected(true);
-                } else {
-                    webMatrix[i][j].setSelected(false);
-                }
-            }
-        }
     }
 
     // Page 3: 7x10 dropdown matrix
@@ -114,12 +115,9 @@ public class MultiPageForm {
         checkBoxMatrixPage4 = new JCheckBox[midi.getScaleLen()][midi.getTimeSlots()];
         JPanel panel = new JPanel(new BorderLayout());
         JPanel grid = createCheckboxMatrix(checkBoxMatrixPage4);
-        JButton playButton2 = new JButton("Play Melody");
-        playButton2.addActionListener(e-> {
-            System.out.println("Page 4 Play melody");
-            //justSound.makeMelody(checkBoxMatrixPage4, midi);
-        });
-        panel.add(playButton2, BorderLayout.CENTER);
+        playButton2 = new JButton("Play Melody");
+        playButton2.addActionListener(playMusicListener);
+        panel.add(playButton2, BorderLayout.WEST);
         panel.add(createNavPanel("Page3", null, true), BorderLayout.SOUTH);
         panel.add(new JScrollPane(grid), BorderLayout.CENTER);
         return panel;
@@ -277,4 +275,19 @@ public class MultiPageForm {
         }
         return sb.toString();
     }
+    private void initMatrix(boolean[][] melodyMatrix, JCheckBox[][] webMatrix) {
+        if(melodyMatrix == null || webMatrix == null) {
+            return;
+        }
+        for(int i = 0; i < melodyMatrix.length && i < webMatrix.length; i++) {
+            for(int j= 0; j < melodyMatrix[0].length && j < webMatrix[0].length; j++) {
+                if(melodyMatrix[i][j]) {
+                    webMatrix[i][j].setSelected(true);
+                } else {
+                    webMatrix[i][j].setSelected(false);
+                }
+            }
+        }
+    }
+
 }
