@@ -27,7 +27,7 @@ public class JustSound {
             ex.printStackTrace();
         }
     }
-
+ /*
     void makeMelody(JCheckBox[][] melodyWeb, MIDI midi) {
         int noteNumber = 0;
         int playtimes = 3;
@@ -40,13 +40,22 @@ public class JustSound {
                         if(i >= 3) {
                             noteNumber = noteNumber-1;
                         }
-                        this.midChannel[5].noteOn(noteNumber,60);
+                        this.midChannel[5].noteOn(noteNumber,400);
                         System.out.println("makeMelody "+noteNumber);
+                        try {
+                            sleep(125);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                        this.midChannel[5].noteOff(noteNumber);
+
                     }
                 }
             }
         }
     }
+
+  */
     void makeMelody(boolean[][] melodyArr, MIDI midi) throws InterruptedException {
         int noteNumber = 0;
         int playtimes = 1;
@@ -60,8 +69,9 @@ public class JustSound {
                             noteNumber = noteNumber-1;
                         }
                         this.midChannel[5].noteOn(noteNumber,400);
-                        sleep(750);
+                        sleep(125);
                         System.out.println("makeMelody "+noteNumber);
+                        //this.midChannel[5].noteOff(noteNumber);
                     }
                 }
             }
