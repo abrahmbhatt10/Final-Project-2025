@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -96,7 +95,7 @@ public class MIDI {
             BufferedReader soundReader = new BufferedReader(new FileReader("soundfiles/" + soundFileName + ".txt"));
 
             this.inputMelody1 = loadNotes(soundReader);
-            switchARoo();
+            interweave();
 
         } catch (IOException e) {
             System.out.println("Error opening test file " + soundFileName+ ".txt");
@@ -150,7 +149,7 @@ public class MIDI {
         return null;
     }
 
-    public void switchARoo(){
+    public void interweave(){
 
     }
 

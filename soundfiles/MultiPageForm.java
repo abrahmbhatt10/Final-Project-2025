@@ -266,7 +266,7 @@ public class MultiPageForm{
          */
         midi.setMelodyFromPage(0, checkBoxMatrixPage2);
         midi.setMelodyFromPage(1,checkBoxMatrixPage4);
-        midi.switchARoo();
+        midi.interweave();
         // Show result in a new window
         JFrame resultFrame = new JFrame("Results Page");
         resultFrame.setSize(1400, 600);
