@@ -151,44 +151,9 @@ public class MIDI {
     }
 
     public void switchARoo(){
-        boolean firstNote = false;
-        int firstJ = 0;
-        int firstI = 0;
-        /*
-            Below code finds the first note
-         */
-        for(int j = 0; j < 64; j++){
-            for(int i = 0; i < scaleLen; i++){
-                if((!firstNote) && (inputMelody1[i][j] == true)){
-                    firstNote = true;
-                    firstJ = j;
-                    firstI = i;
-                    break;
-                }
-            }
-            if(firstNote){
-                break;
-            }
-        }
-        int outputI = 0;
-        for(int i = 0; i < scaleLen; i++){
-            outputI = getSwitchARooI(firstI, i);
-            for(int j = 0; j < 64; j++){
-                outputMelody[outputI][j] = inputMelody1[firstI][j];
-            }
-        }
+
     }
 
-    public int getSwitchARooI(int firstI, int i){
-        int returnI = 2*firstI - i;
-        if(returnI < 0){
-            returnI = scaleLen + returnI;
-        }
-        else if (returnI > scaleLen){
-            returnI = returnI - scaleLen;
-        }
-        return returnI;
-    }
     public void setMelodyFromPage(int selectedIndex, JCheckBox[][] pageMelody) {
         if(selectedIndex < 0 || selectedIndex > 2) {
             return;
