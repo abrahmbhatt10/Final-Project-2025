@@ -51,7 +51,7 @@ public class JustSound {
                 this.midChannel[5].noteOn(noteNumber,400);
                 System.out.println("makeMelody "+noteNumber);
             }
-            Thread.sleep(500);
+            Thread.sleep(125);
         }
     }
 }
