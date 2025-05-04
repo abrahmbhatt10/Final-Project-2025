@@ -152,18 +152,7 @@ public class MIDI {
     public void interweave(){
         for(int j = 0; j < timeSlots; j++){
             for(int i = 0; i < scaleLen; i++){
-                if((j <= 3) || ((j >= 16) && (j <= 19)) || ((j >= 32) && (j <= 35)) || ((j >= 48) && (j <= 51))) {
-                    outputMelody[i][j] = inputMelody1[i][j];
-                }
-                else if(((j >= 4) && (j <= 7))|| ((j >= 20) && (j <= 23)) || ((j >= 36) && (j <= 39)) || ((j >= 52) && (j <= 55))){
-                    outputMelody[i][j] = inputMelody2[i][j];
-                }
-                else if (((j >= 8) && (j <= 11))|| ((j >= 24) && (j <= 27)) || ((j >= 40) && (j <= 43)) || ((j >= 56) && (j <= 59))){
-                    outputMelody[i][j] = inputMelody1[i][j];
-                }
-                else if(((j >= 12) && (j <= 15))|| ((j >= 28) && (j <= 31)) || ((j >= 44) && (j <= 47)) || ((j >= 60) && (j <= 63))){
-                    outputMelody[i][j] = inputMelody2[i][j];
-                }
+
             }
         }
     }
