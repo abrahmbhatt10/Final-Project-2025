@@ -175,10 +175,11 @@ public class MIDI {
             outputMelody[previousi][j] = true;
         }
         donej = previousj;
+        boolean columnEmpty;
         while(donej < timeSlots - 1){
             System.out.println(" Done j, previous i, prevj" + donej + " " + previousi + " " + previousj);
-            boolean columnEmpty = true;
             for(int j = donej + 1; j < timeSlots; j++){
+                columnEmpty = true;
                 for(int i = 0; i < scaleLen; i++){
                     if(outputMelody[i][j]){
                         columnEmpty = false;
