@@ -185,6 +185,7 @@ public class MIDI {
                         previousi = i;
                         previousj = j;
                         donej = j;
+                        System.out.println(" Break1 - Done j, previous i, prevj" + donej + " " + previousi + " " + previousj);
                         break;
                     }
                 }
@@ -192,6 +193,7 @@ public class MIDI {
                     outputMelody[previousi][j] = true;
                     columnEmpty = true;
                     donej = j;
+                    System.out.println(" Column Empty Check - Done j, previous i, prevj" + donej + " " + previousi + " " + previousj);
                 }
             }
         }
