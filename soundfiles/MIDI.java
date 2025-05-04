@@ -150,9 +150,13 @@ public class MIDI {
     }
 
     public void interweave(){
+        boolean previous;
         for(int j = 0; j < timeSlots; j++){
             for(int i = 0; i < scaleLen; i++){
+                outputMelody[i][j] = inputMelody1[i][j];
+                if(inputMelody1[i][j] == false){
 
+                }
             }
         }
     }
