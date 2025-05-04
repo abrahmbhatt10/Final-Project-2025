@@ -1,5 +1,6 @@
-4
+5
 Mary Had A Little Lamb;;maryhadalittlelamb.txt
 Twinkle Twinkle Little Star;;twinkletwinkle.txt
 Random;;sound1.txt
+Tom's Diner;;Tom'sDiner.txt
 Blank;;blank.txt
