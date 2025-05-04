@@ -155,7 +155,7 @@ public class MIDI {
                 if((j <= 3) || ((j >= 16) && (j <= 19)) || ((j >= 32) && (j <= 35)) || ((j >= 48) && (j <= 51))) {
                     outputMelody[i][j] = inputMelody1[i][j];
                 }
-                else if()
+                else
             }
         }
     }
