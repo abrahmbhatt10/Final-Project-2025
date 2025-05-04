@@ -150,6 +150,7 @@ public class MIDI {
     }
 
     public void interweave(){
+        int donej = -1;
         int previousi = -1;
         int previousj = -1;
         for(int j = 0; j < timeSlots; j++){
@@ -169,22 +170,24 @@ public class MIDI {
                 break;
             }
         }
-        for(int j = 0; j < previousj; j++){
-            outputMelody[previousi][j] = true;
-        }
-        boolean columnEmpty = true;
-        for(int j = previousj + 1; j < timeSlots; j++){
-            for(int i = 0; i < scaleLen; i++){
-                if(outputMelody[i][j]){
-                    columnEmpty = false;
-                    previousi = i;
-                    previousj = j;
-                    break;
-                }
-            }
-            if(columnEmpty){
+        while(donej < timeSlots - 1){
+            for(int j = 0; j < previousj; j++){
                 outputMelody[previousi][j] = true;
-                columnEmpty = true;
+            }
+            boolean columnEmpty = true;
+            for(int j = previousj + 1; j < timeSlots; j++){
+                for(int i = 0; i < scaleLen; i++){
+                    if(outputMelody[i][j]){
+                        columnEmpty = false;
+                        previousi = i;
+                        previousj = j;
+                        break;
+                    }
+                }
+                if(columnEmpty){
+                    outputMelody[previousi][j] = true;
+                    columnEmpty = true;
+                }
             }
         }
         /*
