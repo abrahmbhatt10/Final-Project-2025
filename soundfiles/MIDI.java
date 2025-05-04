@@ -150,7 +150,14 @@ public class MIDI {
     }
 
     public void interweave(){
-
+        for(int j = 0; j < timeSlots; j++){
+            for(int i = 0; i < scaleLen; i++){
+                if((j <= 3) || ((j >= 16) && (j <= 19)) || ((j >= 32) && (j <= 35)) || ((j >= 48) && (j <= 51))) {
+                    outputMelody[i][j] = inputMelody1[i][j];
+                }
+                else if()
+            }
+        }
     }
 
     public void setMelodyFromPage(int selectedIndex, JCheckBox[][] pageMelody) {
