@@ -183,6 +183,12 @@ public class MIDI {
                 if(columnEmpty == -1){
                     outputMelody[previousi][j] = true;
                     donej = j;
+                    System.out.println("Column Empty Found - Done j, previous i, prevj" + donej + " " + previousi + " " + previousj);
+                }
+                else{
+                    previousi = columnEmpty;
+                    previousj = j;
+                    donej = j;
                 }
             }
         }
@@ -199,7 +205,7 @@ public class MIDI {
     public int isEmptyColumn(boolean[][] melodyArr, int columnValue){
         int returnValue = -1;
         for(int i = 0; i < scaleLen; i++){
-            if(outputMelody[i][columnValue]){
+            if(melodyArr[i][columnValue]){
                 returnValue = i;
                 break;
             }
