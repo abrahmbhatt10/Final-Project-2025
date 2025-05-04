@@ -172,6 +172,8 @@ public class MIDI {
             for(int i = 0; i < scaleLen; i++){
                 if(inputMelody1[i][j]){
                     columnEmpty = false;
+                    previousi = i;
+                    previousj = j;
                     break;
                 }
             }
