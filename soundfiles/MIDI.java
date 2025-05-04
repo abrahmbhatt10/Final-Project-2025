@@ -163,6 +163,7 @@ public class MIDI {
                 if(outputMelody[i][j]){
                     previousi = i;
                     previousj = j;
+                    donej = j;
                     break;
                 }
             }
@@ -176,7 +177,7 @@ public class MIDI {
         }
         while(donej < timeSlots - 1){
             boolean columnEmpty = true;
-            for(int j = previousj + 1; j < timeSlots; j++){
+            for(int j = donej + 1; j < timeSlots; j++){
                 for(int i = 0; i < scaleLen; i++){
                     if(outputMelody[i][j]){
                         columnEmpty = false;
