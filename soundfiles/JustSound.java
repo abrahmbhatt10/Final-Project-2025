@@ -41,17 +41,19 @@ public class JustSound {
     }
     void makeMelody(boolean[][] melodyArr, MIDI midi, int timerCount) throws InterruptedException {
         int noteNumber = 0;
-        for(int i= 0; i < midi.getScaleLen(); i++) {
-            if(melodyArr[i][timerCount]) {
-                noteNumber = (2*i)+48;
-                if(i >= 3) {
-                    noteNumber = noteNumber -1;
+        while(true){
+            for(int i= 0; i < midi.getScaleLen(); i++) {
+                if(melodyArr[i][timerCount]) {
+                    noteNumber = (2*i)+48;
+                    if(i >= 3) {
+                        noteNumber = noteNumber -1;
+                    }
+                    System.out.println("selected note playing "+noteNumber + " pos "+i+" "+timerCount);
+                    this.midChannel[5].noteOn(noteNumber,400);
+                    System.out.println("makeMelody "+noteNumber);
                 }
-                System.out.println("selected note playing "+noteNumber + " pos "+i+" "+timerCount);
-                this.midChannel[5].noteOn(noteNumber,400);
-                System.out.println("makeMelody "+noteNumber);
+                Thread.sleep(30);
             }
-            Thread.sleep(30);
         }
     }
 }
