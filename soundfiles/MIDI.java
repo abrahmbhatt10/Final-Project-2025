@@ -193,11 +193,6 @@ public class MIDI {
                     outputMelody[i][j] = false;
                 }
             }
-            for(int i = 0; i < scaleLen; i++){
-                if(!inputMelody2[i][j]){
-                    outputMelody[i][j] = false;
-                }
-            }
         }
     }
 
