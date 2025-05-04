@@ -183,7 +183,7 @@ public class MIDI {
                         columnEmpty = false;
                         previousi = i;
                         previousj = j;
-                        donej = previousj;
+                        donej = j;
                         break;
                     }
                 }
