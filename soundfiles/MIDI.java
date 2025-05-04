@@ -187,6 +187,7 @@ public class MIDI {
                 columnEmpty = true;
             }
         }
+        /*
         for(int j = 0; j < timeSlots; j++){
             for(int i = 0; i < scaleLen; i++){
                 if(!inputMelody2[i][j]){
@@ -194,6 +195,7 @@ public class MIDI {
                 }
             }
         }
+         */
     }
 
     public void setMelodyFromPage(int selectedIndex, JCheckBox[][] pageMelody) {
