@@ -181,12 +181,14 @@ public class MIDI {
                         columnEmpty = false;
                         previousi = i;
                         previousj = j;
+                        donej = previousj;
                         break;
                     }
                 }
                 if(columnEmpty){
                     outputMelody[previousi][j] = true;
                     columnEmpty = true;
+                    donej = j;
                 }
             }
         }
