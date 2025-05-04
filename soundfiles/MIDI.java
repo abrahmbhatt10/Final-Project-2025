@@ -175,17 +175,14 @@ public class MIDI {
             outputMelody[previousi][j] = true;
         }
         donej = previousj;
-        boolean columnEmpty;
+        int columnEmpty;
         while(donej < timeSlots - 1){
             System.out.println(" Done j, previous i, prevj" + donej + " " + previousi + " " + previousj);
             for(int j = donej + 1; j < timeSlots; j++){
-                columnEmpty = true;
-
-                if(columnEmpty){
+                columnEmpty = isEmptyColumn(outputMelody, j);
+                if(columnEmpty == -1){
                     outputMelody[previousi][j] = true;
-                    columnEmpty = true;
                     donej = j;
-                    System.out.println(" Column Empty Check - Done j, previous i, prevj" + donej + " " + previousi + " " + previousj);
                 }
             }
         }
