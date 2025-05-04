@@ -154,7 +154,12 @@ public class MIDI {
         int previousj = -1;
         for(int j = 0; j < timeSlots; j++){
             for(int i = 0; i < scaleLen; i++){
-                if(inputMelody1[i][j]){
+                outputMelody[i][j] = inputMelody1[i][j];
+            }
+        }
+        for(int j = 0; j < timeSlots; j++){
+            for(int i = 0; i < scaleLen; i++){
+                if(outputMelody[i][j]){
                     previousi = i;
                     previousj = j;
                     break;
@@ -165,12 +170,12 @@ public class MIDI {
             }
         }
         for(int j = 0; j < previousj; j++){
-            inputMelody1[previousi][j] = true;
+            outputMelody[previousi][j] = true;
         }
         boolean columnEmpty = true;
         for(int j = previousj + 1; j < timeSlots; j++){
             for(int i = 0; i < scaleLen; i++){
-                if(inputMelody1[i][j]){
+                if(outputMelody[i][j]){
                     columnEmpty = false;
                     previousi = i;
                     previousj = j;
@@ -178,14 +183,14 @@ public class MIDI {
                 }
             }
             if(columnEmpty){
-                inputMelody1[previousi][j] = true;
+                outputMelody[previousi][j] = true;
                 columnEmpty = true;
             }
         }
         for(int j = 0; j < timeSlots; j++){
             for(int i = 0; i < scaleLen; i++){
                 if(!inputMelody2[i][j]){
-                    inputMelody1[i][j] = false;
+                    outputMelody[i][j] = false;
                 }
             }
         }
