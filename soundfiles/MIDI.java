@@ -172,6 +172,7 @@ public class MIDI {
         }
         for(int j = 0; j < previousj; j++){
             outputMelody[previousi][j] = true;
+            donej = j;
         }
         while(donej < timeSlots - 1){
             boolean columnEmpty = true;
