@@ -187,6 +187,7 @@ public class MIDI {
             }
         }
         for(int j = 0; j < timeSlots; j++){
+            columnEmpty = isEmptyColumn(inputMelody2, j);
             for(int i = 0; i < scaleLen; i++){
                 if(!inputMelody2[i][j]){
                     outputMelody[i][j] = false;
