@@ -180,16 +180,7 @@ public class MIDI {
             System.out.println(" Done j, previous i, prevj" + donej + " " + previousi + " " + previousj);
             for(int j = donej + 1; j < timeSlots; j++){
                 columnEmpty = true;
-                for(int i = 0; i < scaleLen; i++){
-                    if(outputMelody[i][j]){
-                        columnEmpty = false;
-                        previousi = i;
-                        previousj = j;
-                        donej = j;
-                        System.out.println(" Break1 - Done j, previous i, prevj" + donej + " " + previousi + " " + previousj);
-                        break;
-                    }
-                }
+
                 if(columnEmpty){
                     outputMelody[previousi][j] = true;
                     columnEmpty = true;
@@ -205,6 +196,17 @@ public class MIDI {
                 }
             }
         }
+    }
+
+    public int isEmptyColumn(boolean[][] melodyArr, int columnValue){
+        int returnValue = -1;
+        for(int i = 0; i < scaleLen; i++){
+            if(outputMelody[i][columnValue]){
+                returnValue = i;
+                break;
+            }
+        }
+        return returnValue;
     }
 
     public void setMelodyFromPage(int selectedIndex, JCheckBox[][] pageMelody) {
