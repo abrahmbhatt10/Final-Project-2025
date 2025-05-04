@@ -41,7 +41,6 @@ public class JustSound {
     }
     void makeMelody(boolean[][] melodyArr, MIDI midi, int timerCount) throws InterruptedException {
         int noteNumber = 0;
-        while(true){
             for(int i= 0; i < midi.getScaleLen(); i++) {
                 if(melodyArr[i][timerCount]) {
                     noteNumber = (2*i)+48;
@@ -55,5 +54,4 @@ public class JustSound {
                 Thread.sleep(30);
             }
         }
-    }
 }
