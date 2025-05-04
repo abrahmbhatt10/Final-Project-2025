@@ -170,10 +170,10 @@ public class MIDI {
                 break;
             }
         }
+        for(int j = 0; j < previousj; j++){
+            outputMelody[previousi][j] = true;
+        }
         while(donej < timeSlots - 1){
-            for(int j = 0; j < previousj; j++){
-                outputMelody[previousi][j] = true;
-            }
             boolean columnEmpty = true;
             for(int j = previousj + 1; j < timeSlots; j++){
                 for(int i = 0; i < scaleLen; i++){
