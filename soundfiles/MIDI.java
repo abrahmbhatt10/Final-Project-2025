@@ -7,6 +7,7 @@ public class MIDI {
     private boolean[][] inputMelody1;
     private boolean[][] inputMelody2;
     private boolean[][] outputMelody;
+    private int[][] chordProgression;
     private int scaleLen = 7;
     private int timeSlots = 64;
 
