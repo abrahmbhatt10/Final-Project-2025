@@ -11,6 +11,8 @@ import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Synthesizer;
 import javax.swing.*;
 
+// This class is not currently being used, only being used as a reference point for testing.
+
 public class SimpleSound extends JFrame implements ActionListener{
     Synthesizer syn;
     MidiChannel[] midChannel;
