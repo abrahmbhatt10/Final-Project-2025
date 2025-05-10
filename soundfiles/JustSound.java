@@ -5,6 +5,7 @@ import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Synthesizer;
 import javax.swing.*;
 
+// Below code inspired from simplesound that Mr. Blick helped me create initially
 public class JustSound {
     Synthesizer syn;
     MidiChannel[] midChannel;
