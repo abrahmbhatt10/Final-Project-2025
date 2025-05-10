@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Below code inspired by ChatGPT
+
 public class ResultsPage extends JPanel {
     private static final int MATRIX_ROWS = 7;
     private static final int MATRIX_COLS = 64;
