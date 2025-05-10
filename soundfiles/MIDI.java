@@ -3,6 +3,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+// Mr. Blick helped me quite a bit write the code below
+
 public class MIDI {
     private boolean[][] inputMelody1;
     private boolean[][] inputMelody2;
