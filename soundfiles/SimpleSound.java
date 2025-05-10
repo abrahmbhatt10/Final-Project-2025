@@ -113,10 +113,12 @@ public class SimpleSound extends JFrame implements ActionListener{
             }
         }
     }
-
+/*
     public static void main(String[] args) {
         new SimpleSound().setVisible(true);
     }
+
+ */
 
     @Override
     public void actionPerformed(ActionEvent e) {
