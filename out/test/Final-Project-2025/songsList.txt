@@ -1,6 +1,8 @@
-5
+7
 Mary Had A Little Lamb;;maryhadalittlelamb.txt
 Twinkle Twinkle Little Star;;twinkletwinkle.txt
 Random;;sound1.txt
 Tom's Diner;;Tom'sDiner.txt
+Somebody That I Used to Know;;SomebodyThatIUsedtoKnow.txt
+Boulevard of Broken Dreams;;boulevard.txt
 Blank;;blank.txt
