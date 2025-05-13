@@ -58,6 +58,9 @@ public class MIDI {
         return outputMelody;
     }
 
+    /*
+        Below code inspired by the tester files from SpellCheck.
+    */
     public String[] readSongsList(String soundFileName){
         // Open files
         String line;
@@ -89,9 +92,7 @@ public class MIDI {
         return songNames;
     }
 
-    /*
-        Below code inspired by the tester files from SpellCheck.
-    */
+
     public void readTextFile(String soundFileName){
         // Open files
         try {
